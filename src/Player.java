@@ -41,20 +41,11 @@ public class Player{
 		else if (left && x > 0) {
 			x-=PLAYERSPEED;
 		}
-		else if (right && x < 900) {
+		else if (right && x < 500) {
 			x+=PLAYERSPEED;
 		}
 	}
 	public void paint(Graphics g){
 		g.drawImage(playerImage, x, y, width, height, null);
-	}
-	public boolean contains(double x1, double y1) {
-		y1 -= 20;
-		if (x1 >= x && x1 <= x + width) {
-			if (y1 >= y && y1 <= (y + height)) {
-				return true;
-			}
-		}
-		return false;
 	}
 }

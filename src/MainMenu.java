@@ -48,14 +48,11 @@ public class MainMenu extends JPanel implements ActionListener {
 		panel = new JPanel();
 		frame.add(panel);
 		panel.setLayout(new CardLayout());
-		
-		this.setLayout(null);
 		panel.add(this, "MainMenu");
 		
 		game = new Game();
 		game.addKeyListener(game);
 		game.addMouseListener(game);
-		game.setLayout(null);
 		panel.add(game, "Game");
 		
 
@@ -70,14 +67,14 @@ public class MainMenu extends JPanel implements ActionListener {
 		startButton.addAL(this);
 //		startButton.setOpaque(false);
 //		startButton.setContentAreaFilled(false);
-		startButton.setBorderPainted(false);
+//		startButton.setBorderPainted(false);
 		this.add(startButton);
 		
 		helpButton = new Button(402, 350, 96, 72, helpBDImg, helpBHImg);
 		helpButton.addAL(this);
 //		helpButton.setOpaque(false);
 //		helpButton.setContentAreaFilled(false);
-		helpButton.setBorderPainted(false);
+//		helpButton.setBorderPainted(false);
 		this.add(helpButton);
 
 		t.start();
@@ -129,15 +126,16 @@ public class MainMenu extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		repaint();
+		System.out.println(e.getSource());
 
 		if (e.getSource().equals(startButton)) {
-			System.out.println("Start");
+			System.out.println("Start...");
 			gameState = "Game";
 			((CardLayout)(panel.getLayout())).show(panel, "Game");
 			game.requestFocusInWindow();
 			t.stop();
 		} else if (e.getSource().equals(helpButton)) {
-			System.out.println("Help");
+			System.out.println("Help...");
 			gameState = "Help";
 		}
 		// quit t.stop()
