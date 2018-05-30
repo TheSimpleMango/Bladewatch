@@ -51,12 +51,16 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		if (p1.contains(p2.x, p2.y)) {
+			System.out.println("collision");
+		}
 		p1.update();
 		p2.update();
 		repaint();
 	}
 
 	public void keyPressed(KeyEvent keyPressed) {
+		System.out.println(keyPressed.getKeyCode());
 		switch (keyPressed.getKeyCode()) {
 		case KeyEvent.VK_W:
 			p1.up = true;
@@ -77,10 +81,10 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 			p2.down = true;
 			break;
 		case KeyEvent.VK_LEFT:
-			System.out.println("p2.left");
 			p2.left = true;
 			break;
 		case KeyEvent.VK_RIGHT:
+			System.out.println("right");
 			p2.right = true;
 			break;
 		}
@@ -130,26 +134,15 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-	}
+	public void mouseExited(MouseEvent e) {}
 	
 }
