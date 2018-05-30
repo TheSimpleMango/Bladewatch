@@ -45,11 +45,11 @@ public class Display extends JPanel implements MouseListener, MouseMotionListene
 		loadImages();
 		
 		System.out.println(startbd.getHeight());
-		startButton = new Button(300, 300, 50, 20, startbd, startbh);
+		startButton = new Button(300, 300, 100, 40, startbd, startbh);
 
 		System.out.println(startButton.getDefaultButton().getHeight());
 		startButton.addAL(this);
-		helpButton = new Button(300, 100, 50, 20, helpbd, helpbh);
+		helpButton = new Button(300, 10, 100, 40, helpbd, helpbh);
 		helpButton.addAL(this);
 		this.add(startButton);
 		this.add(helpButton);
