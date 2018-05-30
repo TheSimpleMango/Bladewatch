@@ -42,12 +42,9 @@ public class Display extends JPanel implements MouseListener, MouseMotionListene
 
 		loadImages();
 		
-<<<<<<< HEAD
 		loadImages();
 		
-=======
 		System.out.println(startbd.getHeight());
->>>>>>> 122de5903639782f1ec083d9e04cb1af497e1a36
 		startButton = new Button(300, 300, 50, 20, startbd, startbh);
 
 		System.out.println(startButton.getDefaultButton().getHeight());
@@ -66,10 +63,7 @@ public class Display extends JPanel implements MouseListener, MouseMotionListene
 			startbh = ImageIO.read(Display.class.getResourceAsStream("startButtonH.jpg"));
 			helpbd = ImageIO.read(Display.class.getResourceAsStream("helpButtonD.jpg"));
 			helpbh = ImageIO.read(Display.class.getResourceAsStream("helpButtonH.jpg"));
-<<<<<<< HEAD
-			
-=======
->>>>>>> 122de5903639782f1ec083d9e04cb1af497e1a36
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
