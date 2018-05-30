@@ -11,11 +11,17 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+//asdf
+
 public class Display extends JPanel implements MouseListener, MouseMotionListener, KeyListener, ActionListener{
 	JFrame frame;
 	Button startButton;
-	Button quitButton;
 	Button helpButton;
+	
+	private BufferedImage startbd;
+	private BufferedImage startbh;
+	private BufferedImage helpbd;
+	private BufferedImage helpbh;
 	
 	Timer t;
 
@@ -34,27 +40,36 @@ public class Display extends JPanel implements MouseListener, MouseMotionListene
 		this.addMouseListener(this);
 		
 		t = new Timer(100, this);
-
-		BufferedImage startbd = null;
-		BufferedImage startbh = null;
+		
+		startButton = new Button(300, 300, 50, 20, startbd, startbh);
+		startButton.addAL(this);
+		helpButton = new Button(300, 100, 50, 20, helpbd, helpbh);
+		helpButton.addAL(this);
+		this.add(startButton);
+		this.add(helpButton);
+		
+		repaint();
+	}
+	
+	public void loadImages() {
 		try {
 			startbd = ImageIO.read(Display.class.getResourceAsStream("startButtonD.jpg"));
 			startbh = ImageIO.read(Display.class.getResourceAsStream("startButtonH.jpg"));
+			helpbd = ImageIO.read(Display.class.getResourceAsStream("quitButtonD.jpg"));
+			helpbh = ImageIO.read(Display.class.getResourceAsStream("quitButtonH.jpg"));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		startButton = new Button(300, 300, 50, 20, startbd, startbh);
-		startButton.addAL(this);
-		this.add(startButton);
 		
-		repaint();
 	}
 	
 	public void paint(Graphics g) {
 		System.out.println("paint");
 		super.paint(g);
 		startButton.draw(g);
+		helpButton.draw(g);
 	}
 
 	@Override
@@ -98,8 +113,6 @@ public class Display extends JPanel implements MouseListener, MouseMotionListene
 		else if(e.equals(helpButton)) {
 			//display help Screen
 		}
-		else if(e.equals(quitButton)){
-			//quit Game
-		}
 	}
 }
+
