@@ -22,9 +22,9 @@ public class Button extends JButton{
 		this.x = x;
 		this.y = y;
 		
-		defaultButton = img1;
+		setDefaultButton(img1);
 		hoverButton = img2;
-		drawButton = defaultButton;
+		drawButton = getDefaultButton();
 		
 		setup();
 	}
@@ -54,10 +54,19 @@ public class Button extends JButton{
 	}
 	
 	public void defaultButton() {
-		drawButton = defaultButton;
+		drawButton = getDefaultButton();
 	}
 
 	public void addAL(Display display) {
 		this.addActionListener(display);
 	}
+
+	public BufferedImage getDefaultButton() {
+		return defaultButton;
+	}
+
+	public void setDefaultButton(BufferedImage defaultButton) {
+		this.defaultButton = defaultButton;
+	}
+	
 }
