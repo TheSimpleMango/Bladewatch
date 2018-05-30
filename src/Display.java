@@ -11,7 +11,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-//asdf
 
 public class Display extends JPanel implements MouseListener, MouseMotionListener, KeyListener, ActionListener{
 	JFrame frame;
@@ -41,28 +40,28 @@ public class Display extends JPanel implements MouseListener, MouseMotionListene
 		
 		t = new Timer(100, this);
 		
+		loadImages();
+		
 		startButton = new Button(300, 300, 50, 20, startbd, startbh);
 		startButton.addAL(this);
 		helpButton = new Button(300, 100, 50, 20, helpbd, helpbh);
 		helpButton.addAL(this);
 		this.add(startButton);
 		this.add(helpButton);
-		
 		repaint();
+		
 	}
 	
 	public void loadImages() {
 		try {
 			startbd = ImageIO.read(Display.class.getResourceAsStream("startButtonD.jpg"));
 			startbh = ImageIO.read(Display.class.getResourceAsStream("startButtonH.jpg"));
-			helpbd = ImageIO.read(Display.class.getResourceAsStream("quitButtonD.jpg"));
-			helpbh = ImageIO.read(Display.class.getResourceAsStream("quitButtonH.jpg"));
+			helpbd = ImageIO.read(Display.class.getResourceAsStream("helpButtonD.jpg"));
+			helpbh = ImageIO.read(Display.class.getResourceAsStream("helpButtonH.jpg"));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
 	public void paint(Graphics g) {
