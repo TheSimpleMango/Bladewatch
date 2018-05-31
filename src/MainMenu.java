@@ -67,15 +67,15 @@ public class MainMenu extends JPanel implements ActionListener {
 		
 		startButton = new Button(402, 270, 96, 72, startBDImg, startBHImg);
 		startButton.addAL(this);
-//		startButton.setOpaque(false);
-//		startButton.setContentAreaFilled(false);
+		startButton.setOpaque(false);
+		startButton.setContentAreaFilled(false);
 		startButton.setBorderPainted(false);
 		this.add(startButton);
 		
 		helpButton = new Button(402, 350, 96, 72, helpBDImg, helpBHImg);
 		helpButton.addAL(this);
-//		helpButton.setOpaque(false);
-//		helpButton.setContentAreaFilled(false);
+		helpButton.setOpaque(false);
+		helpButton.setContentAreaFilled(false);
 		helpButton.setBorderPainted(false);
 		this.add(helpButton);
 
