@@ -41,7 +41,7 @@ public class Player{
 		else if (left && x > 0) {
 			x-=PLAYERSPEED;
 		}
-		else if (right && x < 500) {
+		else if (right && x < 900) {
 			x+=PLAYERSPEED;
 		}
 	}
