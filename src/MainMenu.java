@@ -48,7 +48,7 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 		this.setLayout(null);
 		panel.add(this, "MainMenu");
 		
-		game = new Game();
+		game = new Game(WIDTH, HEIGHT);
 		game.addKeyListener(game);
 		game.addMouseListener(game);
 		this.setLayout(null);
@@ -122,7 +122,7 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 
 		// replace this with a picture of the title
 		g.setColor(Color.white);
-		g.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+		g.setFont(new Font("utowide", Font.PLAIN, 25));
 		g.drawString("BladeWatch", 390, 100);
 
 		startButton.draw(g);
@@ -141,7 +141,9 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		repaint();
-
+		
+		
+		
 		if (e.getSource().equals(startButton)) {
 			System.out.println("Start");
 			gameState = "Game";

@@ -17,18 +17,24 @@ import javax.swing.Timer;
 
 @SuppressWarnings("serial")
 public class Game extends JPanel implements MouseListener, KeyListener, ActionListener {
+	private final int WIDTH;
+	private final int HEIGHT;
+	
 	Timer t;
 	BufferedImage backgroundImg;
 
 	Player p1;
 	Player p2;
 
-	public Game() {
+	public Game(int WIDTH, int HEIGHT) {
+		
+		this.WIDTH = WIDTH;
+		this.HEIGHT = HEIGHT;
 		
 		t = new Timer(20, this);
 		
-		p1 = new Player(100, 300, 40, 100, "bunny.png");
-		p2 = new Player(600, 300, 40, 100, "bunny.png");
+		p1 = new Player(100, 300, 40, 100, WIDTH, HEIGHT, "bunny.png");
+		p2 = new Player(600, 300, 40, 100, WIDTH, HEIGHT, "bunny.png");
 		
 		loadImages();
 		
