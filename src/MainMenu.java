@@ -3,11 +3,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 @SuppressWarnings("serial")
-public class MainMenu extends JPanel implements ActionListener {
+public class MainMenu extends JPanel implements ActionListener, MouseListener {
 	private BufferedImage backgroundImg;
 	private JFrame frame;
 	private JPanel panel;
@@ -24,14 +26,9 @@ public class MainMenu extends JPanel implements ActionListener {
 	private BufferedImage helpBDImg;
 	private BufferedImage helpBHImg;
 	Button helpButton;
-	// quit button for ending the timer
-	// private BufferedImage helpBDImg;
-	// private BufferedImage helpBHImg;
-	// Button helpButton;
-	// implement credits page
-	// private BufferedImage creditsbd;
-	// private BufferedImage creditsbh;
-	// Button creditsButton;
+	private BufferedImage creditsBDImg;
+	private BufferedImage creditsBHImg;
+	Button creditsButton;
 
 	private String gameState;
 
@@ -65,19 +62,30 @@ public class MainMenu extends JPanel implements ActionListener {
 		
 		loadImages();
 		
-		startButton = new Button(402, 270, 96, 72, startBDImg, startBHImg);
+		startButton = new Button(402, 180, 96, 72, startBDImg, startBHImg);
 		startButton.addAL(this);
-//		startButton.setOpaque(false);
-//		startButton.setContentAreaFilled(false);
+		startButton.setOpaque(false);
+		startButton.setContentAreaFilled(false);
 		startButton.setBorderPainted(false);
 		this.add(startButton);
 		
-		helpButton = new Button(402, 350, 96, 72, helpBDImg, helpBHImg);
+		helpButton = new Button(402, 300, 96, 72, helpBDImg, helpBHImg);
 		helpButton.addAL(this);
-//		helpButton.setOpaque(false);
-//		helpButton.setContentAreaFilled(false);
+		helpButton.setOpaque(false);
+		helpButton.setContentAreaFilled(false);
 		helpButton.setBorderPainted(false);
 		this.add(helpButton);
+		
+		creditsButton = new Button(402, 390, 96, 72, helpBDImg, helpBHImg);
+		creditsButton.addAL(this);
+		creditsButton.setOpaque(false);
+		creditsButton.setContentAreaFilled(false);
+		creditsButton.setBorderPainted(false);
+		this.add(creditsButton);
+		
+		startButton.addMouseListener(this);
+		helpButton.addMouseListener(this);
+		creditsButton.addMouseListener(this);
 
 		t.start();
 		frame.setSize(WIDTH, HEIGHT);
@@ -90,8 +98,12 @@ public class MainMenu extends JPanel implements ActionListener {
 			startBHImg = ImageIO.read(MainMenu.class.getResourceAsStream("startButtonH.png"));
 			helpBDImg = ImageIO.read(MainMenu.class.getResourceAsStream("helpButtonD.png"));
 			helpBHImg = ImageIO.read(MainMenu.class.getResourceAsStream("helpButtonH.png"));
+			creditsBDImg = ImageIO.read(MainMenu.class.getResourceAsStream("creditsButtonD.png"));
+			creditsBHImg = ImageIO.read(MainMenu.class.getResourceAsStream("creditsButtonD.png"));
 			backgroundImg = ImageIO.read(MainMenu.class.getResourceAsStream("Background.png"));
+			//System.out.println("all images were loaded");
 		} catch (IOException e) {
+			//System.out.println("could not load some images");
 			e.printStackTrace();
 		}
 	}
@@ -115,13 +127,14 @@ public class MainMenu extends JPanel implements ActionListener {
 
 		startButton.draw(g);
 		helpButton.draw(g);
+		creditsButton.draw(g);
 	}
 
 	public void drawHelp(Graphics g) {
 		g.drawImage(backgroundImg, 0, 0, null);
 
 		// replace this with a picture of the title
-		g.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+		g.setFont(new Font("Times New Roman", Font.PLAIN, 35));
 		g.drawString("Help", 390, 100);
 	}
 
@@ -140,5 +153,46 @@ public class MainMenu extends JPanel implements ActionListener {
 			gameState = "Help";
 		}
 		// quit t.stop()
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		if(arg0.getSource().equals(startButton)) {
+			startButton.hoverButton();
+		}
+		else if(arg0.getSource().equals(helpButton)) {
+			helpButton.hoverButton();
+		}
+		repaint();
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		if(arg0.getSource().equals(startButton)) {
+			startButton.defaultButton();
+		}
+		else if(arg0.getSource().equals(helpButton))
+			helpButton.defaultButton();
+		else if(arg0.getSource().equals(creditsButton))
+			creditsButton.defaultButton();
+		repaint();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
