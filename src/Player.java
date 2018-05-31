@@ -10,6 +10,8 @@ public class Player{
 	int y;
 	int width;
 	int height;
+	int screenWidth;
+	int screenHeight;
 	boolean up;
 	boolean down;
 	boolean left;
@@ -18,7 +20,7 @@ public class Player{
 	
 	BufferedImage playerImage;
 	public Player(){}
-	public Player(int x, int y, int width, int height, String imageName){
+	public Player(int x, int y, int width, int height, int screenWidth, int screenHeight, String imageName){
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -35,13 +37,13 @@ public class Player{
 		if (up && y > 0) {
 			y-=PLAYERSPEED;
 		}
-		else if (down && y < 500) {
+		else if (down && y < screenHeight) {
 			y+=PLAYERSPEED;
 		}
 		else if (left && x > 0) {
 			x-=PLAYERSPEED;
 		}
-		else if (right && x < 900) {
+		else if (right && x < screenWidth) {
 			x+=PLAYERSPEED;
 		}
 	}
