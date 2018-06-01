@@ -63,27 +63,27 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 		
 		loadImages();
 		
-		startButton = new Button(402, 180, 96, 72, startBDImg, startBHImg);
+		startButton = new Button(402, 200, 96, 72, startBDImg, startBHImg);
 		startButton.addAL(this);
 		startButton.setOpaque(false);
 		startButton.setContentAreaFilled(false);
 		startButton.setBorderPainted(false);
 		this.add(startButton);
-		
-		helpButton = new Button(402, 300, 96, 72, helpBDImg, helpBHImg);
+
+		helpButton = new Button(402, 275, 96, 72, helpBDImg, helpBHImg);
 		helpButton.addAL(this);
 		helpButton.setOpaque(false);
 		helpButton.setContentAreaFilled(false);
 		helpButton.setBorderPainted(false);
 		this.add(helpButton);
-		
-		creditsButton = new Button(402, 390, 96, 72, helpBDImg, helpBHImg);
+
+		creditsButton = new Button(402, 350, 96, 72, creditsBDImg, creditsBHImg);
 		creditsButton.addAL(this);
 		creditsButton.setOpaque(false);
 		creditsButton.setContentAreaFilled(false);
 		creditsButton.setBorderPainted(false);
 		this.add(creditsButton);
-		
+
 		startButton.addMouseListener(this);
 		helpButton.addMouseListener(this);
 		creditsButton.addMouseListener(this);
@@ -100,11 +100,11 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 			helpBDImg = ImageIO.read(MainMenu.class.getResourceAsStream("helpButtonD.png"));
 			helpBHImg = ImageIO.read(MainMenu.class.getResourceAsStream("helpButtonH.png"));
 			creditsBDImg = ImageIO.read(MainMenu.class.getResourceAsStream("creditsButtonD.png"));
-			creditsBHImg = ImageIO.read(MainMenu.class.getResourceAsStream("creditsButtonD.png"));
-			backgroundImg = ImageIO.read(MainMenu.class.getResourceAsStream("Background.png"));
-			//System.out.println("all images were loaded");
+			creditsBHImg = ImageIO.read(MainMenu.class.getResourceAsStream("creditsButtonH.png"));
+			backgroundImg = ImageIO.read(MainMenu.class.getResourceAsStream("titlePage.jpg"));
+			System.out.println("all images were loaded");
 		} catch (IOException e) {
-			//System.out.println("could not load some images");
+			System.out.println("could not load some images");
 			e.printStackTrace();
 		}
 	}
@@ -120,12 +120,6 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 	
 	public void drawMainMenu(Graphics g) {
 		g.drawImage(backgroundImg, 0, 0, null);
-
-		// replace this with a picture of the title
-		g.setColor(Color.white);
-		g.setFont(new Font("utowide", Font.PLAIN, 25));
-		g.drawString("BladeWatch", 390, 100);
-
 		startButton.draw(g);
 		helpButton.draw(g);
 		creditsButton.draw(g);
@@ -134,17 +128,12 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 	public void drawHelp(Graphics g) {
 		g.drawImage(backgroundImg, 0, 0, null);
 
-		// replace this with a picture of the title
-		g.setFont(new Font("Times New Roman", Font.PLAIN, 35));
-		g.drawString("Help", 390, 100);
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		repaint();
-		
-		
-		
 		if (e.getSource().equals(startButton)) {
 			System.out.println("Start");
 			gameState = "Game";
@@ -166,20 +155,19 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		if(arg0.getSource().equals(startButton)) {
+		if(arg0.getSource().equals(startButton)) 
 			startButton.hoverButton();
-		}
-		else if(arg0.getSource().equals(helpButton)) {
+		else if(arg0.getSource().equals(helpButton)) 
 			helpButton.hoverButton();
-		}
+		else if(arg0.getSource().equals(creditsButton))
+			creditsButton.hoverButton();
 		repaint();
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		if(arg0.getSource().equals(startButton)) {
+		if(arg0.getSource().equals(startButton)) 
 			startButton.defaultButton();
-		}
 		else if(arg0.getSource().equals(helpButton))
 			helpButton.defaultButton();
 		else if(arg0.getSource().equals(creditsButton))
