@@ -10,6 +10,7 @@ import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class MainMenu extends JPanel implements ActionListener, MouseListener {
+	//comment
 	private BufferedImage backgroundImg;
 	private JFrame frame;
 	private JPanel panel;
