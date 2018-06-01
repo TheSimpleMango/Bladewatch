@@ -12,6 +12,7 @@ import java.io.IOException;
 public class MainMenu extends JPanel implements ActionListener, MouseListener {
 	//comment
 	private BufferedImage backgroundImg;
+	private BufferedImage creditsPage;
 	private JFrame frame;
 	private JPanel panel;
 	private final int WIDTH = 900;
@@ -30,7 +31,7 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 	private BufferedImage creditsBDImg;
 	private BufferedImage creditsBHImg;
 	Button creditsButton;
-
+	
 	private String gameState;
 
 	public static void main(String[] args) {
@@ -102,6 +103,7 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 			creditsBDImg = ImageIO.read(MainMenu.class.getResourceAsStream("creditsButtonD.png"));
 			creditsBHImg = ImageIO.read(MainMenu.class.getResourceAsStream("creditsButtonH.png"));
 			backgroundImg = ImageIO.read(MainMenu.class.getResourceAsStream("titlePage.jpg"));
+			creditsPage = ImageIO.read(MainMenu.class.getResourceAsStream("Credits Page.jpg")); //get credits page image
 			System.out.println("all images were loaded");
 		} catch (IOException e) {
 			System.out.println("could not load some images");
