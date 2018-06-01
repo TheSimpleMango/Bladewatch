@@ -25,6 +25,8 @@ public class Player{
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
 		this.imageName = imageName;
 		
 		try {
