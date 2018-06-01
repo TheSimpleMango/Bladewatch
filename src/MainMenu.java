@@ -115,7 +115,10 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 			drawMainMenu(g);
 		} else if (gameState == "Help") {
 			drawHelp(g);
+		} else if (gameState == "Credits") {
+			drawCredits(g);
 		}
+		
 	}
 	
 	public void drawMainMenu(Graphics g) {
@@ -127,22 +130,27 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 
 	public void drawHelp(Graphics g) {
 		g.drawImage(backgroundImg, 0, 0, null);
-
 	}
-
+	
+	public void drawCredits(Graphics g) {
+		g.drawImage(creditsPage, 0,0,null);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		repaint();
 		if (e.getSource().equals(startButton)) {
-			System.out.println("Start");
+			System.out.println("Pressed Start");
 			gameState = "Game";
 			((CardLayout)(panel.getLayout())).show(panel, "Game");
 			game.requestFocusInWindow();
 			t.stop();
 		} else if (e.getSource().equals(helpButton)) {
-			System.out.println("Help");
+			System.out.println("Pressed Help");
 			gameState = "Help";
+		} else if(e.getSource().equals(creditsButton)) {
+			System.out.println("Pressed Credits");
+			gameState = "Credits";
 		}
 		// quit t.stop()
 	}
