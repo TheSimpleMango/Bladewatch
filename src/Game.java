@@ -33,8 +33,8 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 		
 		t = new Timer(20, this);
 		
-		p1 = new Player(100, 300, 40, 100, WIDTH, HEIGHT, "bunny.png");
-		p2 = new Player(600, 300, 40, 100, WIDTH, HEIGHT, "bunny.png");
+		p1 = new Player(100, 300, 40, 100, WIDTH, HEIGHT, "Fighter.png");
+		p2 = new Player(600, 300, 40, 100, WIDTH, HEIGHT, "Fighter.png");
 		
 		loadImages();
 		
@@ -58,9 +58,9 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 	
 	public void actionPerformed(ActionEvent e) {
 		p1.update();
-		p1.updateGravity();
+		p1.update2();
 		p2.update();
-		p2.updateGravity();
+		p2.update2();
 		repaint();
 		}
 

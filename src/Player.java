@@ -1,25 +1,27 @@
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
-
+import java.util.*;
 public class Player{
-	final int PLAYERSPEED = 25;
-	final int GRAVITY_EFFECT = 7;
+	private final int PLAYERSPEED = 19;
+	private final int GRAVITY_EFFECT = 15;
 	int x;
 	int y;
 	int width;
 	int height;
 	int screenWidth;
 	int screenHeight;
-	boolean up;
-	boolean down;
-	boolean left;
-	boolean right;
-	boolean onGround;
-	String imageName;
-	
+	protected boolean up;
+	protected boolean down;
+	protected boolean left;
+	protected boolean right;
+	protected boolean onGround;
+	protected boolean hasJumped;
+	protected final int JUMP_HEIGHT=200;
+	protected String imageName;
 	BufferedImage playerImage;
 	public Player(){}
 	public Player(int x, int y, int width, int height, int screenWidth, int screenHeight, String imageName){
@@ -37,12 +39,13 @@ public class Player{
 			e.printStackTrace();
 		}
 	}
+	
 	public void update(){
 		if (up && y > 0) {
-			y-=PLAYERSPEED;
+			y-=PLAYERSPEED*1.5;
 		}
 		else if (down && y < screenHeight) {
-			y+=PLAYERSPEED;
+			y+=PLAYERSPEED*1.5;
 		}
 		else if (left && x > 0) {
 			x-=PLAYERSPEED;
@@ -52,7 +55,7 @@ public class Player{
 		}		
 	}
 	
-	public void updateGravity() {
+	public void update2() {			
 		if(y>=screenHeight)
 			onGround = true;
 		else 
