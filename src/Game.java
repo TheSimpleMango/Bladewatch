@@ -58,9 +58,11 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 	
 	public void actionPerformed(ActionEvent e) {
 		p1.update();
+		p1.updateGravity();
 		p2.update();
+		p2.updateGravity();
 		repaint();
-	}
+		}
 
 	public void keyPressed(KeyEvent keyPressed) {
 		switch (keyPressed.getKeyCode()) {

@@ -5,7 +5,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Player{
-	final int PLAYERSPEED = 18;
+	final int PLAYERSPEED = 25;
+	final int GRAVITY_EFFECT = 7;
 	int x;
 	int y;
 	int width;
@@ -16,6 +17,7 @@ public class Player{
 	boolean down;
 	boolean left;
 	boolean right;
+	boolean onGround;
 	String imageName;
 	
 	BufferedImage playerImage;
@@ -47,8 +49,22 @@ public class Player{
 		}
 		else if (right && x < screenWidth) {
 			x+=PLAYERSPEED;
+		}		
+	}
+	
+	public void updateGravity() {
+		if(y>=screenHeight)
+			onGround = true;
+		else 
+			onGround = false;
+		if(!onGround) {
+			y+=GRAVITY_EFFECT;
+			if(y>=screenHeight) {
+				onGround=true;
+			}
 		}
 	}
+	
 	public void paint(Graphics g){
 		g.drawImage(playerImage, x, y, width, height, null);
 	}

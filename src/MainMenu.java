@@ -10,7 +10,6 @@ import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class MainMenu extends JPanel implements ActionListener, MouseListener {
-	//comment
 	private BufferedImage backgroundImg;
 	private BufferedImage creditsPage;
 	private JFrame frame;
@@ -54,8 +53,7 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 		game.addKeyListener(game);
 		game.addMouseListener(game);
 		this.setLayout(null);
-		panel.add(game, "Game");
-		
+		panel.add(game, "Game");	
 
 		((CardLayout)(panel.getLayout())).show(panel, "MainMenu");
 		
@@ -120,7 +118,6 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 		} else if (gameState == "Credits") {
 			drawCredits(g);
 		}
-		
 	}
 	
 	public void drawMainMenu(Graphics g) {
