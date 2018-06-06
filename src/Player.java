@@ -20,11 +20,15 @@ public class Player{
 	protected boolean right;
 	protected boolean onGround;
 	protected boolean hasJumped;
+	protected boolean onPlatform;
 	protected final int JUMP_HEIGHT=200;
 	protected String imageName;
+	protected ArrayList<Platform> platformList;
 	BufferedImage playerImage;
 	public Player(){}
-	public Player(int x, int y, int width, int height, int screenWidth, int screenHeight, String imageName){
+	public Player(int x, int y, int width, int height, int screenWidth, int screenHeight, String imageName, ArrayList<Platform> platformList){
+		onPlatform = true;
+		this.platformList = platformList;
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -55,19 +59,18 @@ public class Player{
 		}		
 	}
 	
-	public void update2() {			
-		if(y>=screenHeight)
-			onGround = true;
-		else 
-			onGround = false;
-		if(!onGround) {
-			y+=GRAVITY_EFFECT;
-			if(y>=screenHeight) {
-				onGround=true;
+	public void onPlatform(){
+		for(int i=0;i<platformList.size();i++) {
+			Platform plat = platformList.get(i);
+			if((y + height <= plat.y && y + height >= plat.y - PLAYERSPEED) && (x >= plat.x && x <= plat.x+ plat.width)) {
+				onPlatform = true;
+				return;
 			}
 		}
+		onPlatform = false;
 	}
 	
+
 	public void paint(Graphics g){
 		g.drawImage(playerImage, x, y, width, height, null);
 	}

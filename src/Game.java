@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -19,22 +21,26 @@ import javax.swing.Timer;
 public class Game extends JPanel implements MouseListener, KeyListener, ActionListener {
 	private final int WIDTH;
 	private final int HEIGHT;
-	
 	Timer t;
 	BufferedImage backgroundImg;
-
+	protected ArrayList<Platform> pList;
 	Player p1;
 	Player p2;
-
+	
+	
 	public Game(int WIDTH, int HEIGHT) {
+		
+		pList = new ArrayList<Platform>(Arrays.asList(new Platform(0, 450-10, WIDTH, 450, "floorPlatform.png" )));
 		
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
 		
 		t = new Timer(20, this);
 		
-		p1 = new Player(100, 300, 40, 100, WIDTH, HEIGHT, "Fighter.png");
-		p2 = new Player(600, 300, 40, 100, WIDTH, HEIGHT, "Fighter.png");
+		
+		
+		p1 = new Player(100, 300, 40, 100, WIDTH, HEIGHT, "Fighter.png", pList);
+		p2 = new Player(600, 300, 40, 100, WIDTH, HEIGHT, "Fighter.png", pList);
 		
 		loadImages();
 		
@@ -46,6 +52,9 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 		g.drawImage(backgroundImg, 0, 0, null);
 		p1.paint(g);
 		p2.paint(g);
+		for(int i =0;i<pList.size();i++) {
+			pList.get(i).paint(g);
+		}
 	}
 
 	private void loadImages() {
@@ -58,9 +67,7 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 	
 	public void actionPerformed(ActionEvent e) {
 		p1.update();
-		p1.update2();
 		p2.update();
-		p2.update2();
 		repaint();
 		}
 
