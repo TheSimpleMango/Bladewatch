@@ -10,9 +10,9 @@ public class ImageLoader {
     private final int TILE_SIZE = 32; //change
 
     public BufferedImage loadSprite(String file) {
-
+    	
         BufferedImage sprite = null;
-
+        
         try {
             sprite = ImageIO.read(new File(file));
         } catch (IOException e) {

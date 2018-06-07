@@ -53,7 +53,7 @@ public class MainMenu extends JPanel implements ActionListener, MouseListener {
 		game.addKeyListener(game);
 		game.addMouseListener(game);
 		this.setLayout(null);
-		panel.add(game, "Game");	
+		panel.add(game, "Game");
 
 		((CardLayout)(panel.getLayout())).show(panel, "MainMenu");
 		

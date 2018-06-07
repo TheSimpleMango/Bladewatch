@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +10,6 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -21,29 +22,36 @@ import javax.swing.Timer;
 public class Game extends JPanel implements MouseListener, KeyListener, ActionListener {
 	private final int WIDTH;
 	private final int HEIGHT;
+
 	Timer t;
 	BufferedImage backgroundImg;
-	protected ArrayList<Platform> pList;
+
+	Handler handler;
+
 	Player p1;
 	Player p2;
+
+	vertical leftEdge, rightEdge;
+	floor ground, ceiling;
 	
-	
+	Player win = null;
+
 	public Game(int WIDTH, int HEIGHT) {
-		
-		pList = new ArrayList<Platform>(Arrays.asList(new Platform(0, 450-10, WIDTH, 450, "floorPlatform.png" )));
-		
+
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
-		
+
 		t = new Timer(20, this);
-		
-		
-		
-		p1 = new Player(100, 300, 40, 100, WIDTH, HEIGHT, "Fighter.png", pList);
-		p2 = new Player(600, 300, 40, 100, WIDTH, HEIGHT, "Fighter.png", pList);
-		
+
+		handler = new Handler();
+
+		p1 = new Player(100, 300, WIDTH, HEIGHT, "player.png", handler, false, this, "p1health.png");
+		p2 = new Player(600, 300, WIDTH, HEIGHT, "player.png", handler, true, this, "p2health.png");
+
+		initGame();
+
 		loadImages();
-		
+
 		t.start();
 		repaint();
 	}
@@ -52,9 +60,29 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 		g.drawImage(backgroundImg, 0, 0, null);
 		p1.paint(g);
 		p2.paint(g);
-		for(int i =0;i<pList.size();i++) {
-			pList.get(i).paint(g);
+		if (win != null) {
+			g.setColor(Color.white);
+			g.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+			if (win.equals(p2)) {
+				g.drawString("player 1 wins!", 200, 200);
+			}
+			else {
+				g.drawString("player 2 wins!", 200, 200);
+			}
 		}
+	}
+
+	private void initGame() {
+		ground = new floor(0, HEIGHT - 20, WIDTH, WIDTH, HEIGHT);
+		ceiling = new floor(0, 0, WIDTH, WIDTH, HEIGHT);
+		leftEdge = new vertical(0, 0, HEIGHT, WIDTH, HEIGHT);
+		rightEdge = new vertical(WIDTH - 20, 0, HEIGHT, WIDTH, HEIGHT);
+		handler.addObj(p1);
+		handler.addObj(p2);
+		handler.addObj(ground);
+		handler.addObj(ceiling);
+		handler.addObj(leftEdge);
+		handler.addObj(rightEdge);
 	}
 
 	private void loadImages() {
@@ -64,39 +92,59 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 			e.printStackTrace();
 		}
 	}
-	
-	public void actionPerformed(ActionEvent e) {
-		p1.update();
-		p2.update();
-		repaint();
-		}
 
+	public void actionPerformed(ActionEvent e) {
+		tick(handler.object);
+	}
+
+	private void tick(ArrayList<gameObject> object) {
+		p1.update(object);
+		p2.update(object);
+		repaint();
+	}
+
+	@Override
 	public void keyPressed(KeyEvent keyPressed) {
 		switch (keyPressed.getKeyCode()) {
 		case KeyEvent.VK_W:
-			p1.up = true;
-			break;
-		case KeyEvent.VK_S:
-			p1.down = true;
+			if (!p1.isFalling()) {
+				p1.up = true;
+				p1.setJumping(true);
+				p1.setVelY(-1 * p1.PLAYERSPEED);
+			}
 			break;
 		case KeyEvent.VK_A:
 			p1.left = true;
+			p1.setVelX(-1 * p1.PLAYERSPEED / 3);
+			p1.facesLeft = true;
 			break;
 		case KeyEvent.VK_D:
 			p1.right = true;
+			p1.setVelX(p1.PLAYERSPEED / 3);
+			p1.facesLeft = false;
+			break;
+		case KeyEvent.VK_Q:
+			p1.swordSprite();
+			if (p1.contains(p2)) {
+				p2.decreaseHealth();
+			}
 			break;
 		case KeyEvent.VK_UP:
-			p2.up = true;
-			break;
-		case KeyEvent.VK_DOWN:
-			p2.down = true;
+			if (!p2.isFalling()) {
+				p2.up = true;
+				p2.setJumping(true);
+				p2.setVelY(-1 * p2.PLAYERSPEED);
+			}
 			break;
 		case KeyEvent.VK_LEFT:
-			System.out.println("p2.left");
 			p2.left = true;
+			p2.setVelX(-1 * p1.PLAYERSPEED / 3);
+			p2.facesLeft = true;
 			break;
 		case KeyEvent.VK_RIGHT:
 			p2.right = true;
+			p2.setVelX(p1.PLAYERSPEED / 3);
+			p2.facesLeft = false;
 			break;
 		}
 		repaint();
@@ -104,31 +152,48 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 
 	@Override
 	public void keyReleased(KeyEvent keyReleased) {
-		System.out.println("keyReleased");
 		switch (keyReleased.getKeyCode()) {
 		case KeyEvent.VK_W:
 			p1.up = false;
 			break;
-		case KeyEvent.VK_S:
-			p1.down = false;
-			break;
 		case KeyEvent.VK_A:
 			p1.left = false;
+			if (!p1.right) {
+				p1.setVelX(0);
+			}
 			break;
 		case KeyEvent.VK_D:
 			p1.right = false;
+			if (!p1.left) {
+				p1.setVelX(0);
+			}
+			break;
+		case KeyEvent.VK_Q:
+			p1.swordSprite();
+			if (p1.contains(p2)) {
+				p2.decreaseHealth();
+			}
+			break;
+		case KeyEvent.VK_E:
+			p1.right = false;
+			if (!p1.left) {
+				p1.setVelX(0);
+			}
 			break;
 		case KeyEvent.VK_UP:
 			p2.up = false;
 			break;
-		case KeyEvent.VK_DOWN:
-			p2.down = false;
-			break;
 		case KeyEvent.VK_LEFT:
 			p2.left = false;
+			if (!p2.right) {
+				p2.setVelX(0);
+			}
 			break;
 		case KeyEvent.VK_RIGHT:
 			p2.right = false;
+			if (!p2.left) {
+				p2.setVelX(0);
+			}
 			break;
 		}
 		repaint();
@@ -136,12 +201,10 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		System.out.println("keyTyped");
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		System.out.println("mouseClicked");
 	}
 
 	@Override
@@ -167,4 +230,9 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 		// TODO Auto-generated method stub
 	}
 	
+	public void endGame(Player p){
+		win = p;
+		repaint();
+	}
+
 }
