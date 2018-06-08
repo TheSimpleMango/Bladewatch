@@ -10,17 +10,15 @@ public class Platform{
 	int y;
 	int width;
 	int height;
-	protected String imageName;
 	BufferedImage playerImage;
 	protected Player player1;
 	protected Player player2;
 	public Platform(){}
-	public Platform(int x, int y, int width, int height, String imageName){
+	public Platform(int x, int y, int width, int height, int screenWidth, int screenHeight){
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.imageName = imageName;
 		
 		try {
 			playerImage = ImageIO.read(this.getClass().getResourceAsStream(imageName));

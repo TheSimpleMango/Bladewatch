@@ -3,6 +3,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
@@ -37,8 +38,8 @@ public class Player extends gameObject {
 		this.g = g;
 
 		objType = "Player";
-		viewImage = objImage.getSubimage(0, 147, 189, 146);
-
+		standImage();
+		
 		velX = 0;
 		velY = 0;
 		try {
@@ -88,7 +89,7 @@ public class Player extends gameObject {
 			gameObject temp = handler.object.get(i);
 			// if the object isn't the player itself
 			if (!objType.equals(temp.objType)) {
-				// if the player's top is hitting the object
+				// if the player'sq top is hitting the object
 				if (getBoundsTop().intersects(temp.getBounds())) {
 					y = temp.getY() + height;
 					velY = 0;
@@ -103,7 +104,7 @@ public class Player extends gameObject {
 					falling = false;
 					jumping = false;
 					noFloor = false;
-					// System.out.println("hit bot");
+					System.out.println("hit bot" + x + "/" + y);
 				}
 
 				// if right side is hitting the object
@@ -153,7 +154,7 @@ public class Player extends gameObject {
 	}
 
 	public void paint(Graphics g) {
-		g.drawImage(viewImage, (int) x, (int) y, width, height, null);
+		g.drawImage(viewImage, (int) x, (int) y, viewImage.getWidth(), viewImage.getHeight(), null);
 		g.drawImage(healthImage, (int) x-15, (int) y-20, 40, 10, null);
 	}
 
@@ -185,7 +186,7 @@ public class Player extends gameObject {
 	}
 
 	public void swordSprite() {
-		viewImage = objImage.getSubimage(3 * XTILE_SIZE, 3 * YTILE_SIZE, XTILE_SIZE, YTILE_SIZE);
+		viewImage = objImage.getSubimage(81, 0, 95, 78);
 	}
 
 	public boolean contains(gameObject temp) {
@@ -225,8 +226,8 @@ public class Player extends gameObject {
 			g.endGame(this);
 		}
 	}
-	
+
 	public void standImage(){
-		
+		viewImage = objImage.getSubimage(0, 0, 58, 78);
 	}
 }

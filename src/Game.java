@@ -15,6 +15,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import org.omg.Messaging.SyncScopeHelper;
+
 //ftp://ecs.csus.edu/clevengr/133/handouts/UsingJavaKeyBindings.pdf
 //look into key bindings as an alternative to keylistener
 
@@ -87,17 +89,19 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 
 	private void loadImages() {
 		try {
-			backgroundImg = ImageIO.read(MainMenu.class.getResourceAsStream("Future.jpg"));
+			backgroundImg = ImageIO.read(MainMenu.class.getResourceAsStream("Future.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		System.out.println(p1.getX() + "/ " + p1.getY());
 		tick(handler.object);
 	}
 
 	private void tick(ArrayList<gameObject> object) {
+		System.out.println(p1.getX() + "/ " + p1.getY());
 		p1.update(object);
 		p2.update(object);
 		repaint();
@@ -123,12 +127,6 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 			p1.setVelX(p1.PLAYERSPEED / 3);
 			p1.facesLeft = false;
 			break;
-		case KeyEvent.VK_Q:
-			p1.swordSprite();
-			if (p1.contains(p2)) {
-				p2.decreaseHealth();
-			}
-			break;
 		case KeyEvent.VK_UP:
 			if (!p2.isFalling()) {
 				p2.up = true;
@@ -145,6 +143,16 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 			p2.right = true;
 			p2.setVelX(p1.PLAYERSPEED / 3);
 			p2.facesLeft = false;
+			break;
+		case KeyEvent.VK_Q:
+			p1.swordSprite();
+			repaint();
+			if (p1.contains(p2)) {
+				p2.decreaseHealth();
+			}
+			break;
+		case KeyEvent.VK_E:
+			System.out.println("Fireball!");
 			break;
 		}
 		repaint();
@@ -168,18 +176,6 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 				p1.setVelX(0);
 			}
 			break;
-		case KeyEvent.VK_Q:
-			p1.swordSprite();
-			if (p1.contains(p2)) {
-				p2.decreaseHealth();
-			}
-			break;
-		case KeyEvent.VK_E:
-			p1.right = false;
-			if (!p1.left) {
-				p1.setVelX(0);
-			}
-			break;
 		case KeyEvent.VK_UP:
 			p2.up = false;
 			break;
@@ -195,12 +191,19 @@ public class Game extends JPanel implements MouseListener, KeyListener, ActionLi
 				p2.setVelX(0);
 			}
 			break;
+		case KeyEvent.VK_Q:
+			p2.standImage();
+			break;
 		}
 		repaint();
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		switch (e.getKeyCode()) {
+			
+		}
+		repaint();
 	}
 
 	@Override
